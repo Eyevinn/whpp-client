@@ -1,0 +1,27 @@
+{
+  "name": "@eyevinn/whpp-client",
+  "version": "0.1.0",
+  "description": "WebRTC HTTP Playback Protocol client library",
+  "main": "dist/whpp-client.js",
+  "module": "dist/whpp-client.m.js",
+  "esmodule": "dist/whpp-client.modern.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "microbundle --no-sourcemap --format modern,es,cjs",
+    "dev": "microbundle --watch --format modern,es,cjs",
+    "example:web": "parcel --host 0.0.0.0 --port 2345 --no-cache examples/web.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eyevinn Technology <work@eyevinn.se>",
+  "license": "MIT",
+  "devDependencies": {
+    "microbundle": "^0.15.0",
+    "parcel": "^2.6.2",
+    "typescript": "^4.7.4"
+  }
+}
