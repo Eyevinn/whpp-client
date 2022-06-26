@@ -25,7 +25,18 @@ await client.connect();
 
 ```
 
-### Examples
+## Options
+
+```
+{
+  debug?: boolean; // Use debug logging
+  noIceTrickle?: boolean; // Wait for all ICE candidates to be gathered
+  timeout?: number; // Timeout for gathering ICE candidates
+  useLegacyContentType?: boolean; // WHPP endpoints that does not support the `whpp+json` content type
+}
+```
+
+## Examples
 
 | Example | Description | Source |
 | ------- | ----------- | ------ |
