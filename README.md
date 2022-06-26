@@ -29,7 +29,7 @@ await client.connect();
 
 | Example | Description | Source |
 | ------- | ----------- | ------ |
-| `npm run example:web` | WHPP implementation in browser | `examples/web.html´ |
+| `npm run example:web` | WHPP implementation in browser | `examples/web.html` |
 
 ## About Eyevinn Technology
 
