@@ -21,6 +21,7 @@ interface WHPPClientOpts {
   debug?: boolean;
   noIceTrickle?: boolean;
   timeout?: number;
+  useLegacyContentType?: boolean;
 }
 
 export class WHPPClient {
@@ -49,16 +50,27 @@ export class WHPPClient {
   }
 
   async connect() {
-    const response = await fetch(this.whppUrl.href, {
+    let response = await fetch(this.whppUrl.href, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/whpp+json"
       },
       body: '{}'
     });
 
     if (!response.ok) {
-      return;
+      if (response.status === 415) {
+        this.opts.useLegacyContentType = true;
+        response = await fetch(this.whppUrl.href, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: '{}'
+        });    
+      } else {
+        return;
+      }
     }
 
     const offerResponse = <WHPPOfferResponse>await response.json();
@@ -161,7 +173,7 @@ export class WHPPClient {
     const response = await fetch(this.resourceUrl.href, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": !this.opts?.useLegacyContentType ? "application/whpp+json" : "application/json"
       },
       body: JSON.stringify(candidateRequest)
     });
@@ -181,7 +193,7 @@ export class WHPPClient {
     const response = await fetch(this.resourceUrl.href, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": !this.opts?.useLegacyContentType ? "application/whpp+json" : "application/json"
       },
       body: JSON.stringify(answerRequest)
     });
