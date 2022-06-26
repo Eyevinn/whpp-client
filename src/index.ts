@@ -53,7 +53,7 @@ export class WHPPClient {
     let response = await fetch(this.whppUrl.href, {
       method: "POST",
       headers: {
-        "Content-Type": "application/whpp+json"
+        "Content-Type": !this.opts?.useLegacyContentType ? "application/whpp+json" : "application/json"
       },
       body: '{}'
     });

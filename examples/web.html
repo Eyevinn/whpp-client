@@ -26,7 +26,7 @@
             video.srcObject = ev.streams[0];
           }
         };
-        const client = new WHPPClient(peer, whppUrl, { debug: true });
+        const client = new WHPPClient(peer, whppUrl, { debug: true, useLegacyContentType: true });
         await client.connect();
       });
     </script>
