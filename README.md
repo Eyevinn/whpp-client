@@ -1,6 +1,10 @@
 # WHPP Client Library
 
-A node / JS library for WebRTC HTTP Playback Protocol
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Slack](http://slack.streamingtech.se/badge.svg)](http://slack.streamingtech.se)
+
+A Node / JS library for [WebRTC HTTP Playback Protocol](https://github.com/Eyevinn/webrtc-http-playback-protocol/blob/master/webrtc-http-playback-protocol.md)
+
+For more information about WHIP and WHPP read [this blog post](https://medium.com/@eyevinntechnology/whip-whpp-for-webrtc-based-broadcast-streaming-2cf469e95299).
 
 ## Usage
 
