@@ -17,8 +17,19 @@
     "example:web": "parcel --host 0.0.0.0 --port 2345 --no-cache examples/web.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "webrtc",
+    "whpp"
+  ],
   "author": "Eyevinn Technology <work@eyevinn.se>",
+  "contributors": [
+    "Jonas Birmé <jonas.birme@eyevinn.se> (Eyevinn Technology AB)"
+  ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eyevinn/whpp-clientgit"
+  },
   "devDependencies": {
     "microbundle": "^0.15.0",
     "parcel": "^2.6.2",
