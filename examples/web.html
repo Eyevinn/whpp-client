@@ -16,7 +16,7 @@
       import { WHPPClient } from "../dist/whpp-client.js";
 
       window.addEventListener("DOMContentLoaded", async () => {
-        const whppUrl = new URL("http://localhost:8001/broadcaster/channel/test");
+        const whppUrl = new URL("https://broadcaster.lab.sto.eyevinn.technology:8443/broadcaster/channel/sthlm");
 
         const video = document.querySelector("video");
         const peer = new RTCPeerConnection({ iceServers: [{ urls: "stun:stun.l.google.com:19302" }] });

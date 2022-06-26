@@ -52,7 +52,7 @@ export class WHPPClient {
     const response = await fetch(this.whppUrl.href, {
       method: "POST",
       headers: {
-        "Content-Type": "application/whpp+json"
+        "Content-Type": "application/json"
       },
       body: '{}'
     });
@@ -161,7 +161,7 @@ export class WHPPClient {
     const response = await fetch(this.resourceUrl.href, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/whpp+json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(candidateRequest)
     });
@@ -181,7 +181,7 @@ export class WHPPClient {
     const response = await fetch(this.resourceUrl.href, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/whpp+json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(answerRequest)
     });
