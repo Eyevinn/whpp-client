@@ -8,6 +8,8 @@ A node / JS library for WebRTC HTTP Playback Protocol
 npm install --save @eyevinn/whpp-client
 ```
 
+Example on how to implement the WHPP library in browser.
+
 ```javascript
 import { WHPPClient } from "@eyevinn/whpp-client";
 
@@ -22,6 +24,12 @@ const client = new WHPPClient(peer, "http://localhost:8001/broadcaster/channel/t
 await client.connect();
 
 ```
+
+### Examples
+
+| Example | Description | Source |
+| ------- | ----------- | ------ |
+| `npm run example:web` | WHPP implementation in browser | `examples/web.html´ |
 
 ## About Eyevinn Technology
 
