@@ -1,6 +1,6 @@
 {
   "name": "@eyevinn/whpp-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "WebRTC HTTP Playback Protocol client library",
   "main": "dist/whpp-client.js",
   "module": "dist/whpp-client.m.js",
