@@ -30,7 +30,7 @@ async function patchIsSupported(url: URL): Promise<boolean> {
   });
   if (response.ok) {
     if (response.headers.get("Allow")) {
-      return !!(response.headers.get("Allow").split(",").find(el => el === "PATCH"));
+      return !!(response.headers.get("Allow").split(",").find(el => el.trimStart() === "PATCH"));
     }
   }
   return false;
@@ -93,6 +93,10 @@ export class WHPPClient {
 
     // Check whether viewer resource supports ice trickle
     const iceTrickleSupported = await patchIsSupported(this.resourceUrl);
+    this.log("ICE trickle supported by endpoint: " + iceTrickleSupported);
+    if (!this.opts) {
+      this.opts = {};
+    }
     this.opts.noIceTrickle = !iceTrickleSupported;
 
     if (!this.supportsTrickleIce()) {
@@ -105,6 +109,7 @@ export class WHPPClient {
     await this.localPeer.setLocalDescription(answer);
 
     if (this.supportsTrickleIce()) {
+      this.log("ICE trickle supported, sending answer");
       await this.sendAnswer();
     } else {
       this.iceGatheringTimeout = setTimeout(this.onIceGatheringTimeout.bind(this), this.opts?.timeout || DEFAULT_CONNECT_TIMEOUT);
