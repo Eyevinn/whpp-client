@@ -24,6 +24,18 @@ interface WHPPClientOpts {
   useLegacyContentType?: boolean;
 }
 
+async function patchIsSupported(url: URL): Promise<boolean> {
+  let response = await fetch(url.href, {
+    method: "OPTIONS"
+  });
+  if (response.ok) {
+    if (response.headers.get("Allow")) {
+      return !!(response.headers.get("Allow").split(",").find(el => el === "PATCH"));
+    }
+  }
+  return false;
+}
+
 export class WHPPClient {
   private localPeer: RTCPeerConnection;
   private whppUrl: URL;
@@ -76,6 +88,12 @@ export class WHPPClient {
     const offerResponse = <WHPPOfferResponse>await response.json();
     const locationHeader = response.headers.get('location');
     this.resourceUrl = new URL(locationHeader);
+
+    this.log(offerResponse.offer);
+
+    // Check whether viewer resource supports ice trickle
+    const iceTrickleSupported = await patchIsSupported(this.resourceUrl);
+    this.opts.noIceTrickle = !iceTrickleSupported;
 
     if (!this.supportsTrickleIce()) {
       this.waitingForCandidates = true;
@@ -180,6 +198,9 @@ export class WHPPClient {
 
     if (!response.ok) {
       this.error(`sendCandidate response: ${response.status}`);
+      if (response.status === 405) {
+        this.log("ICE trickle not supported by endpoint");
+      }
     }
   }
 
@@ -189,6 +210,8 @@ export class WHPPClient {
     const answerRequest:WHPPAnswerRequest = {
       answer: answer.sdp
     }
+
+    this.log(answerRequest.answer);
 
     const response = await fetch(this.resourceUrl.href, {
       method: "PUT",
