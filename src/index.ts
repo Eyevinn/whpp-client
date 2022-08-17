@@ -77,6 +77,8 @@ export class WHPPClient {
     const locationHeader = response.headers.get('location');
     this.resourceUrl = new URL(locationHeader);
 
+    this.log(offerResponse.offer);
+
     if (!this.supportsTrickleIce()) {
       this.waitingForCandidates = true;
     }
@@ -180,6 +182,12 @@ export class WHPPClient {
 
     if (!response.ok) {
       this.error(`sendCandidate response: ${response.status}`);
+      if (response.status === 405) {
+        this.log("ICE trickle not supported by endpoint");
+        this.opts.noIceTrickle = true;
+        this.waitingForCandidates = true;
+        this.iceGatheringTimeout = setTimeout(this.onIceGatheringTimeout.bind(this), this.opts?.timeout || DEFAULT_CONNECT_TIMEOUT);
+      }
     }
   }
 
@@ -189,6 +197,8 @@ export class WHPPClient {
     const answerRequest:WHPPAnswerRequest = {
       answer: answer.sdp
     }
+
+    this.log(answerRequest.answer);
 
     const response = await fetch(this.resourceUrl.href, {
       method: "PUT",
